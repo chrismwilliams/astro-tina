@@ -1,135 +1,133 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { Config } from "tailwindcss";
 
-import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
+import { clampGenerator, tokensToTailwind } from "./src/css-utils";
+// Design Tokens
+import colorTokens from "./src/design-tokens/colors.json";
+import fontTokens from "./src/design-tokens/fonts.json";
+import spacingTokens from "./src/design-tokens/spacing.json";
+import textLeadingTokens from "./src/design-tokens/text-leading.json";
+import textSizeTokens from "./src/design-tokens/text-sizes.json";
+import textWeightTokens from "./src/design-tokens/text-weights.json";
+import viewportTokens from "./src/design-tokens/viewports.json";
+
+// Process design tokens
+const colors = tokensToTailwind(colorTokens.items);
+const fontFamily = tokensToTailwind(fontTokens.items);
+const fontWeight = tokensToTailwind(textWeightTokens.items);
+const fontSize = tokensToTailwind(clampGenerator(textSizeTokens.items));
+const lineHeight = tokensToTailwind(textLeadingTokens.items);
+const spacing = tokensToTailwind(clampGenerator(spacingTokens.items));
+
 export default {
+	// Prevents Tailwind's core components
+	blocklist: ["container"],
 	content: [
 		"./src/**/*.{astro,html,js,jsx,md,svelte,ts,tsx,vue}",
 		"!./src/pages/og-image/[slug].png.ts",
 	],
 	corePlugins: {
-		// disable aspect ratio as per docs -> @tailwindcss/aspect-ratio
-		aspectRatio: false,
+		backgroundOpacity: false,
 		borderOpacity: false,
-		fontVariantNumeric: false,
-		ringOffsetColor: false,
-		ringOffsetWidth: false,
-		scrollSnapType: false,
+		preflight: false,
 		textOpacity: false,
-		// disable some core plugins as they are included in the css, even when unused
-		touchAction: false,
 	},
-	darkMode: ["class", '[data-theme="dark"]'],
+	// Prevents Tailwind from generating that wall of empty custom properties
+	experimental: {
+		optimizeUniversalDefaults: true,
+	},
 	plugins: [
-		require("@tailwindcss/typography"),
-		require("@tailwindcss/aspect-ratio"),
-		plugin(function ({ addComponents }) {
-			addComponents({
-				".cactus-link": {
-					"&:hover": {
-						"@apply decoration-link decoration-2": {},
-					},
-					"@apply underline underline-offset-2": {},
-				},
-				".title": {
-					"@apply text-2xl font-semibold text-accent-2": {},
-				},
+		// Generates custom property values from tailwind config
+		plugin(function ({ addBase, config }) {
+			const currentConfig = config();
+			const groups = [
+				{ key: "colors", prefix: "color" },
+				{ key: "spacing", prefix: "space" },
+				{ key: "fontSize", prefix: "size" },
+				{ key: "lineHeight", prefix: "leading" },
+				{ key: "fontFamily", prefix: "font" },
+				{ key: "fontWeight", prefix: "font" },
+			];
+
+			const cssVars: Record<string, string> = {};
+
+			groups.forEach(({ key, prefix }) => {
+				if (currentConfig.theme) {
+					const group = currentConfig.theme[key];
+
+					if (!group) {
+						return;
+					}
+
+					Object.keys(group).forEach((key) => {
+						if (Array.isArray(group[key])) {
+							// If the value is an array, join its elements into a comma-separated string
+							cssVars[`--${prefix}-${key}`] = group[key].join(", ");
+						} else {
+							// Otherwise, assign the value
+							cssVars[`--${prefix}-${key}`] = String(group[key]);
+						}
+					});
+				}
 			});
+
+			addBase({
+				":root": cssVars,
+			});
+		}),
+
+		// Generates custom utility classes
+		plugin(function ({ addUtilities, config }) {
+			const currentConfig = config();
+			const customUtilities = [
+				{ key: "spacing", prefix: "flow-space", property: "--flow-space" },
+				{ key: "spacing", prefix: "region-space", property: "--region-space" },
+				{ key: "spacing", prefix: "gutter", property: "--gutter" },
+			];
+
+			const utilities: Record<string, Record<string, string>> = {};
+
+			customUtilities.forEach(({ key, prefix, property }) => {
+				if (currentConfig.theme) {
+					const group = currentConfig.theme[key];
+
+					if (!group) {
+						return;
+					}
+
+					Object.keys(group).forEach((key) => {
+						utilities[`.${prefix}-${key}`] = { [property]: group[key] };
+					});
+				}
+			});
+			// console.log(utilities);
+			addUtilities(utilities);
 		}),
 	],
 	theme: {
-		extend: {
-			colors: {
-				accent: "hsl(var(--theme-accent) / <alpha-value>)",
-				"accent-2": "hsl(var(--theme-accent-2) / <alpha-value>)",
-				bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
-				link: "hsl(var(--theme-link) / <alpha-value>)",
-				quote: "hsl(var(--theme-quote) / <alpha-value>)",
-				textColor: "hsl(var(--theme-text) / <alpha-value>)",
-			},
-			fontFamily: {
-				// Add any custom fonts here
-				sans: [...fontFamily.sans],
-				serif: [...fontFamily.serif],
-			},
-			transitionProperty: {
-				height: "height",
-			},
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-expect-error
-			// Remove above once tailwindcss exposes theme type
-			typography: (theme) => ({
-				DEFAULT: {
-					css: {
-						a: {
-							"@apply cactus-link": "",
-						},
-						blockquote: {
-							borderLeftWidth: "0",
-						},
-						code: {
-							border: "1px dotted #666",
-							borderRadius: "2px",
-						},
-						hr: {
-							borderTopStyle: "dashed",
-						},
-						strong: {
-							fontWeight: "700",
-						},
-						sup: {
-							"@apply ms-0.5": "",
-							a: {
-								"&:after": {
-									content: "']'",
-								},
-								"&:before": {
-									content: "'['",
-								},
-								"&:hover": {
-									"@apply text-link no-underline bg-none": "",
-								},
-								"@apply bg-none": "",
-							},
-						},
-						"tbody tr": {
-							borderBottomWidth: "none",
-						},
-						tfoot: {
-							borderTop: "1px dashed #666",
-						},
-						thead: {
-							borderBottomWidth: "none",
-						},
-						"thead th": {
-							borderBottom: "1px dashed #666",
-							fontWeight: "700",
-						},
-					},
-				},
-				cactus: {
-					css: {
-						"--tw-prose-body": theme("colors.textColor / 1"),
-						"--tw-prose-bold": theme("colors.textColor / 1"),
-						"--tw-prose-bullets": theme("colors.textColor / 1"),
-						"--tw-prose-code": theme("colors.textColor / 1"),
-						"--tw-prose-headings": theme("colors.accent-2 / 1"),
-						"--tw-prose-hr": "0.5px dashed #666",
-						"--tw-prose-links": theme("colors.textColor / 1"),
-						"--tw-prose-quotes": theme("colors.quote / 1"),
-						"--tw-prose-th-borders": "#666",
-					},
-				},
-				sm: {
-					css: {
-						code: {
-							fontSize: theme("fontSize.sm")[0],
-							fontWeight: "400",
-						},
-					},
-				},
-			}),
+		backgroundColor: ({ theme }) => theme("colors"),
+		colors,
+		fontFamily,
+		fontSize,
+		fontWeight,
+		lineHeight,
+		margin: ({ theme }) => ({
+			auto: "auto",
+			...theme("spacing"),
+		}),
+		padding: ({ theme }) => theme("spacing"),
+		screens: {
+			lg: `${viewportTokens.max.toString()}px`,
+			md: `${viewportTokens.mid.toString()}px`,
+			sm: `${viewportTokens.min.toString()}px`,
 		},
+		spacing,
+		textColor: ({ theme }) => theme("colors"),
 	},
 } satisfies Config;

@@ -23,6 +23,7 @@
 		"satori": "0.10.13",
 		"satori-html": "^0.3.2",
 		"sharp": "^0.33.2",
+		"slugify": "^1.6.6",
 		"tinacms": "^1.6.3"
 	},
 	"devDependencies": {
@@ -30,8 +31,6 @@
 		"@iconify-json/mdi": "^1.1.66",
 		"@pagefind/default-ui": "^1.1.0",
 		"@resvg/resvg-js": "^2.6.2",
-		"@tailwindcss/aspect-ratio": "^0.4.2",
-		"@tailwindcss/typography": "^0.5.12",
 		"@tinacms/cli": "^1.5.45",
 		"@types/eslint": "^8.56.7",
 		"@types/node": "^20.12.12",
