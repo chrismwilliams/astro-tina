@@ -22,7 +22,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 
 {
 	data.coverImage && (
-		<div class="aspect-h-9 aspect-w-16 mb-6">
+		<div class="">
 			<Image
 				alt={data.coverImage.alt}
 				class="object-cover"
@@ -33,18 +33,18 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 		</div>
 	)
 }
-{data.draft ? <span class="text-base text-red-500">(Draft)</span> : null}
-<h1 class="title mb-3 sm:mb-1">
+{data.draft ? <span class="">(Draft)</span> : null}
+<h1 class="">
 	{data.title}
 </h1>
-<div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-	<p class="font-semibold">
+<div class="">
+	<p class="">
 		<FormattedDate date={data.publishDate} dateTimeOptions={dateTimeOptions} /> /{" "}
 		{remarkPluginFrontmatter.minutesRead}
 	</p>
 	{
 		data.updatedDate && (
-			<span class="rounded-lg bg-quote/10 p-1 text-quote">
+			<span class="">
 				Last Updated:
 				<FormattedDate class="ms-1" date={data.updatedDate} dateTimeOptions={dateTimeOptions} />
 			</span>
@@ -53,10 +53,10 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 </div>
 {
 	!!data.tags?.length && (
-		<div class="mt-3">
+		<div class="">
 			<svg
 				aria-hidden="true"
-				class="inline-block h-6 w-6"
+				class=""
 				fill="none"
 				focusable="false"
 				stroke="currentColor"
@@ -75,10 +75,13 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 				<>
 					<a
 						aria-label={`View more blogs with the tag ${tag}`}
-						class="cactus-link inline-block before:content-['#']"
+						class=""
 						data-pagefind-filter="tag"
 						href={`/tags/${tag}/`}
-					>{tag}</a>{i < data.tags.length - 1 && ", "}
+					>
+						{tag}
+					</a>
+					{i < data.tags.length - 1 && ", "}
 				</>
 			))}
 		</div>

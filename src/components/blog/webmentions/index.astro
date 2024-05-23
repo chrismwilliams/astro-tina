@@ -13,13 +13,13 @@ if (!webMentions.length) return;
 {
 	!!webMentions.length && (
 		<>
-			<hr class="border-solid" />
-			<h2 class="mb-8 before:hidden">Webmentions for this post</h2>
-			<div class="space-y-10">
+			<hr class="" />
+			<h2 class="">Webmentions for this post</h2>
+			<div class="">
 				<Likes mentions={webMentions} />
 				<Comments mentions={webMentions} />
 			</div>
-			<p class="mt-8">
+			<p class="">
 				Responses powered by{" "}
 				<a href="https://webmention.io" rel="noopener noreferrer" target="_blank">
 					Webmentions
