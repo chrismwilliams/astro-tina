@@ -2,17 +2,19 @@
 import type { SiteMeta } from "@/types";
 
 import BaseHead from "@/components/BaseHead.astro";
-import SkipLink from "@/components/SkipLink.astro";
-import ThemeProvider from "@/components/ThemeProvider.astro";
 import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
 import { siteConfig } from "@/site-config";
 
+import "../css/index.css";
+
 interface Props {
+	class?: string | string[] | undefined;
 	meta: SiteMeta;
 }
 
 const {
+	class: className = "",
 	meta: { articleDate, description = siteConfig.description, ogImage, title },
 } = Astro.props;
 ---
@@ -22,10 +24,8 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 	</head>
 	<body>
-		<ThemeProvider />
-		<SkipLink />
 		<Header />
-		<main id="main">
+		<main class:list={className} id="main">
 			<slot />
 		</main>
 		<Footer />
