@@ -27,7 +27,7 @@
 		"tinacms": "^1.6.3"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.5.10",
+		"@astrojs/check": "^0.7.0",
 		"@iconify-json/mdi": "^1.1.66",
 		"@pagefind/default-ui": "^1.1.0",
 		"@resvg/resvg-js": "^2.6.2",
