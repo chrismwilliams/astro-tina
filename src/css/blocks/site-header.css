@@ -1,0 +1,18 @@
+.site-header {
+	--region-space: var(--space-m-l);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	nav {
+		border-radius: 0.5rem;
+		padding-block: var(--space-3xs);
+		padding-inline: var(--space-xs);
+		background-color: var(--color-dark-glare);
+		text-underline-offset: 3px;
+
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+}
