@@ -47,14 +47,14 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 ---
 
 <PageLayout class="wrapper region flow" meta={meta}>
-	<h1>Posts</h1>
+	<h1>Writings</h1>
 	<div class="region sidebar" data-sidebar="reverse">
 		<section aria-label="Blog post list" class="flow">
 			{
 				descYearKeys.map((yearKey) => (
 					<>
 						<h2>{yearKey}</h2>
-						<ul class="flow" role="list">
+						<ul class="post-list" role="list">
 							{groupedByYear[yearKey]?.map((p) => (
 								<li>
 									<PostPreview post={p} />
