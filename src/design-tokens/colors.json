@@ -8,11 +8,15 @@
 		},
 		{
 			"name": "Dark",
-			"value": "#030303"
+			"value": "#0E0E0E"
 		},
 		{
 			"name": "Dark Glare",
 			"value": "#191919"
+		},
+		{
+			"name": "Grey",
+			"value": "#5a5a5a"
 		},
 		{
 			"name": "Light",

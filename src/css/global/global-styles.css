@@ -54,15 +54,8 @@ svg {
 	margin: 0;
 }
 
-/* Base interactive elements */
-
 a {
 	color: currentcolor;
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: none;
 }
 
 main:focus {

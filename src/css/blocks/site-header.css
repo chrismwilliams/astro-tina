@@ -11,8 +11,12 @@
 		background-color: var(--color-dark-glare);
 		text-underline-offset: 3px;
 
-		a:hover {
-			text-decoration: underline;
+		a {
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
 		}
 	}
 }
