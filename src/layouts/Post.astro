@@ -1,9 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
-import BlogHero from "@/components/blog/Hero.astro";
-import TOC from "@/components/blog/TOC.astro";
-import WebMentions from "@/components/blog/webmentions/index.astro";
+import PostHero from "@/components/post/PostHero.astro";
+import TOC from "@/components/post/TOC.astro";
 
 import BaseLayout from "./Base.astro";
 
@@ -25,14 +24,13 @@ const { headings } = await post.render();
 	<div class="wrapper region">
 		{!!headings.length && <TOC headings={headings} />}
 		<article data-pagefind-body>
-			<div id="blog-hero"><BlogHero content={post} /></div>
+			<div id="post-hero"><PostHero content={post} /></div>
 			<div class="flow prose">
 				<slot />
-				<WebMentions />
 			</div>
 		</article>
 	</div>
-	<button aria-label="Back to Top" class="" data-show="false" id="to-top-btn"
+	<button class="" data-show="false" id="to-top-btn"
 		><svg
 			aria-hidden="true"
 			class="h-6 w-6"
@@ -45,12 +43,13 @@ const { headings } = await post.render();
 		>
 			<path d="M4.5 15.75l7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
+		<span class="visually-hidden">Back to Top</span>
 	</button>
 </BaseLayout>
 
 <script>
 	const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
-	const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
+	const targetHeader = document.getElementById("post-hero") as HTMLDivElement;
 
 	function callback(entries: IntersectionObserverEntry[]) {
 		entries.forEach((entry) => {

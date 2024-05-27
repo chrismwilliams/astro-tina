@@ -7,16 +7,17 @@ import { getPostSortDate } from "@/data/post";
 import FormattedDate from "../FormattedDate.astro";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
+	dateTimeOptions?: Intl.DateTimeFormatOptions | undefined;
 	post: CollectionEntry<"post">;
 };
 
-const { as: Tag = "div", post } = Astro.props;
+const { as: Tag = "div", dateTimeOptions, post } = Astro.props;
 const postDate = getPostSortDate(post);
 ---
 
-<FormattedDate date={postDate} />
+<FormattedDate date={postDate} {...dateTimeOptions} />
 <Tag>
-	{post.data.draft && <span>(Draft) </span>}
+	{post.data.draft && <span>[DRAFT] </span>}
 	<a data-astro-prefetch href={`/writings/${post.slug}/`}>
 		{post.data.title}
 	</a>

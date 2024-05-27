@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { Image } from "astro:assets";
+
+import FormattedDate from "../FormattedDate.astro";
+
+interface Props {
+	content: CollectionEntry<"post">;
+}
+
+const {
+	content: { data, render },
+} = Astro.props;
+
+const { remarkPluginFrontmatter } = await render();
+
+const dateTimeOptions: Intl.DateTimeFormatOptions = {
+	month: "long",
+};
+---
+
+{
+	data.coverImage && (
+		<div>
+			<Image
+				alt={data.coverImage.alt}
+				class="object-cover"
+				fetchpriority="high"
+				loading="eager"
+				src={data.coverImage.src}
+			/>
+		</div>
+	)
+}
+{data.draft ? <span>(Draft)</span> : null}
+<h1>
+	{data.title}
+</h1>
+<div class="flow">
+	<p>
+		<FormattedDate date={data.publishDate} dateTimeOptions={dateTimeOptions} /> /{" "}
+		{remarkPluginFrontmatter.minutesRead}
+	</p>
+	{
+		data.updatedDate && (
+			<span>
+				Last Updated:
+				<FormattedDate class="ms-1" date={data.updatedDate} dateTimeOptions={dateTimeOptions} />
+			</span>
+		)
+	}
+</div>
