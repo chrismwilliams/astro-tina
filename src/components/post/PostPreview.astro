@@ -15,7 +15,7 @@ const { as: Tag = "div", dateTimeOptions, post } = Astro.props;
 const postDate = getPostSortDate(post);
 ---
 
-<FormattedDate date={postDate} {...dateTimeOptions} />
+<FormattedDate date={postDate} dateTimeOptions={dateTimeOptions} />
 <Tag>
 	{post.data.draft && <span>[DRAFT] </span>}
 	<a data-astro-prefetch href={`/writings/${post.slug}/`}>

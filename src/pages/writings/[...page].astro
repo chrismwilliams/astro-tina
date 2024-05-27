@@ -54,7 +54,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 					<ul class="post-list" role="list">
 						{groupedByYear[yearKey]?.map((p) => (
 							<li>
-								<PostPreview dateTimeOptions={{ year: undefined }} post={p} />
+								<PostPreview dateTimeOptions={{ month: "numeric", year: undefined }} post={p} />
 							</li>
 						))}
 					</ul>
