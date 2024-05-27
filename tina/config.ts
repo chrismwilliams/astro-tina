@@ -11,14 +11,14 @@ export default defineConfig({
 		publicFolder: "public",
 	},
 	// Get this from tina.io
-	clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
+	clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? null,
 	media: {
 		tina: {
 			mediaRoot: "assets",
 			publicFolder: "public",
 		},
 	},
-	// See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
+	// See docs on content modelling for more info on how to setup new content models: https://tina.io/docs/schema/
 	schema: {
 		collections: [
 			{
@@ -71,5 +71,5 @@ export default defineConfig({
 		],
 	},
 	// Get this from tina.io
-	token: process.env.TINA_TOKEN,
+	token: process.env.TINA_TOKEN ?? null,
 });
