@@ -15,8 +15,12 @@
 			"value": "#191919"
 		},
 		{
+			"name": "Dark Grey",
+			"value": "#333333"
+		},
+		{
 			"name": "Grey",
-			"value": "#5a5a5a"
+			"value": "#777777"
 		},
 		{
 			"name": "Light",
@@ -25,10 +29,6 @@
 		{
 			"name": "Text",
 			"value": "#C3C3C3"
-		},
-		{
-			"name": "Primary",
-			"value": "#02394A"
 		}
 	]
 }

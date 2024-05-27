@@ -20,11 +20,10 @@
 			grid-column: span 9;
 
 			a {
-				text-decoration: none;
 				text-underline-offset: 2px;
 
-				&:hover {
-					text-decoration: underline;
+				&:not(:hover) {
+					text-decoration: none;
 				}
 			}
 		}
