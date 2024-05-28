@@ -1,11 +1,8 @@
 ---
+import "@/css/blocks/site-header.css";
 import { menuLinks } from "@/site-config";
 
 import SkipLink from "../SkipLink.astro";
-
-// import Search from "../Search.astro";
-
-import "@/css/blocks/site-header.css";
 
 const url = new URL(Astro.request.url);
 ---
@@ -26,5 +23,4 @@ const url = new URL(Astro.request.url);
 			))
 		}
 	</nav>
-	<!-- <Search /> -->
 </header>
