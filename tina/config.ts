@@ -14,7 +14,7 @@ export default defineConfig({
 	clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? null,
 	media: {
 		tina: {
-			mediaRoot: "assets",
+			mediaRoot: "/src/assets",
 			publicFolder: "public",
 		},
 	},
@@ -23,38 +23,61 @@ export default defineConfig({
 		collections: [
 			{
 				defaultItem: () => ({
-					posted: new Date().toISOString(),
-					published: true,
+					draft: false,
+					publishedDate: new Date().toISOString(),
 				}),
 				fields: [
+					{
+						label: "Slug",
+						name: "slug",
+						required: true,
+						type: "string",
+					},
 					{
 						isTitle: true,
 						label: "Title",
 						name: "title",
 						required: true,
 						type: "string",
+						ui: {
+							validate: (val: string) => {
+								if (val.length > 60) {
+									return "Title must be less than 60 characters";
+								}
+								return;
+							},
+						},
 					},
 					{
 						label: "Description",
 						name: "description",
 						required: true,
 						type: "string",
+						ui: {
+							validate: (val: string) => {
+								if (val.length < 50 || val.length > 160) {
+									return "Description must be between 50 and 160 characters";
+								}
+								return;
+							},
+						},
 					},
 					{
-						label: "Date Posted",
-						name: "posted",
+						label: "Published Date",
+						name: "publishedDate",
 						required: true,
 						type: "datetime",
 					},
 					{
-						label: "Published",
-						name: "published",
-						type: "boolean",
+						label: "Updated Date",
+						name: "updatedDate",
+						type: "datetime",
 					},
 					{
-						label: "Updated",
-						name: "updated",
-						type: "datetime",
+						label: "Draft",
+						name: "draft",
+						required: true,
+						type: "boolean",
 					},
 					{
 						isBody: true,

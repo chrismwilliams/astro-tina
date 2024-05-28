@@ -1,10 +1,13 @@
 ---
-title: "A post of Markdown elements"
-description: "This post is for testing and listing a number of different markdown elements"
-publishDate: "22 Feb 2023"
-updatedDate: 22 Jan 2024
-tags: ["test", "markdown"]
+slug: markdown-example
+title: Markdown Example
+description: This post is for testing and listing a number of different markdown elements
+publishedDate: 2023-02-22T00:00:00.000Z
+updatedDate: 2024-01-22T00:00:00.000Z
+draft: false
 ---
+
+Example Markdown Elements
 
 ## This is a H2 Heading
 
@@ -20,38 +23,13 @@ tags: ["test", "markdown"]
 
 ---
 
----
-
----
-
-## Emphasis
-
-**This is bold text**
-
-_This is italic text_
-
-~~Strikethrough~~
-
 ## Quotes
 
 "Double quotes" and 'single quotes'
 
 ## Blockquotes
 
-> Blockquotes can also be nested...
->
-> > ...by using additional greater-than signs right next to each other...
-
-## References
-
-An example containing a clickable reference[^1] with a link to the source.
-
-Second example containing a reference[^2] with a link to the source.
-
-[^1]: Reference first footnote with a return to content link.
-[^2]: Second reference with a link.
-
-If you check out this example in `src/content/post/markdown-elements/index.md`, you'll notice that the references and the heading "Footnotes" are added to the bottom of the page via the [remark-rehype](https://github.com/remarkjs/remark-rehype#options) plugin.
+> My blockquote
 
 ## Lists
 
@@ -70,25 +48,12 @@ Ordered
 1. Lorem ipsum dolor sit amet
 2. Consectetur adipiscing elit
 3. Integer molestie lorem at massa
-
 4. You can use sequential numbers...
 5. ...or keep all the numbers as `1.`
-
-Start numbering with offset:
-
-57. foo
-1. bar
 
 ## Code
 
 Inline `code`
-
-Indented code
-
-    // Some comments
-    line 1 of code
-    line 2 of code
-    line 3 of code
 
 Block code "fences"
 
@@ -110,7 +75,7 @@ console.log(foo(5));
 
 Adding a title
 
-```js title="file.js"
+```js title="my title"
 console.log("Title example");
 ```
 
@@ -149,16 +114,6 @@ Right aligned columns
 |   data | path to data files to supply the data that will be passed into templates. |
 | engine |    engine to be used for processing templates. Handlebars is the default. |
 |    ext |                                      extension to be used for dest files. |
-
-## Images
-
-Image in the same folder: `src/content/post/markdown-elements/logo.png`
-
-![Astro theme cactus logo](./logo.png)
-
-Image in the aliased assets folder: `src/assets/about-astro.png`
-
-![A cartoon cactus looking at the Astro.build logo](@/assets/about-astro.png)
 
 ## Links
 
