@@ -1,19 +1,24 @@
-import rss from "@astrojs/rss";
+import type { MDXPost } from "@/types";
+
 import { siteConfig } from "@/site-config";
-import { getAllPosts } from "@/data/post";
+import rss from "@astrojs/rss";
 
-export const GET = async () => {
-	const posts = await getAllPosts();
+const posts: MDXPost[] = Object.values(import.meta.glob("../content/posts/*.mdx", { eager: true }));
 
-	return rss({
-		title: siteConfig.title,
+console.log({ posts });
+
+export const GET = async () =>
+	rss({
 		description: siteConfig.description,
-		site: import.meta.env.SITE,
 		items: posts.map((post) => ({
-			title: post.data.title,
-			description: post.data.description,
-			pubDate: post.data.publishDate,
-			link: `posts/${post.slug}`,
+			...(post.frontmatter.updatedDate
+				? { customData: `<updated>${new Date(post.frontmatter.updatedDate).toString()}</updated>` }
+				: {}),
+			description: post.frontmatter.description,
+			link: `posts/${post.frontmatter.slug}`,
+			pubDate: new Date(post.frontmatter.publishedDate),
+			title: post.frontmatter.title,
 		})),
+		site: import.meta.env.SITE,
+		title: siteConfig.title,
 	});
-};

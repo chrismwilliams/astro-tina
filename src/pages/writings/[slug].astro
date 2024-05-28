@@ -1,13 +1,15 @@
 ---
+import type { MDXPost, PostFrontmatter } from "@/types";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
-import { getAllPosts } from "@/data/post";
 import PostLayout from "@/layouts/Post.astro";
 
 export const getStaticPaths = (async () => {
-	const posts = await getAllPosts();
+	const posts = (await Astro.glob<PostFrontmatter>("../../content/posts/*.mdx")).filter((post) =>
+		import.meta.env.PROD ? !post.frontmatter.draft : true
+	) as MDXPost[];
 	return posts.map((post) => ({
-		params: { slug: post.slug },
+		params: { slug: post.frontmatter.slug },
 		props: { post },
 	}));
 }) satisfies GetStaticPaths;
@@ -15,7 +17,7 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = post;
 ---
 
 <PostLayout post={post}>

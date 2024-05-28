@@ -1,11 +1,15 @@
+import type { MDXPost } from "@/types";
 import type { APIContext, InferGetStaticPropsType } from "astro";
 
 import RobotoMonoBold from "@/assets/roboto-mono-700.ttf";
 import RobotoMono from "@/assets/roboto-mono-regular.ttf";
-import { getAllPosts } from "@/data/post";
 import { siteConfig } from "@/site-config";
 import { getFormattedDate } from "@/utils";
 import { ImageResponse } from "@vercel/og";
+
+const posts: MDXPost[] = Object.values(
+	import.meta.glob("../../content/posts/*.mdx", { eager: true }),
+);
 
 const html = (title: string, pubDate: string) => ({
 	props: {
@@ -137,15 +141,12 @@ export function GET(context: APIContext) {
 	});
 }
 
-export async function getStaticPaths() {
-	const posts = await getAllPosts();
-	return posts
-		.filter(({ data }) => !data.ogImage)
-		.map((post) => ({
-			params: { slug: post.slug },
-			props: {
-				pubDate: post.data.updatedDate ?? post.data.publishDate,
-				title: post.data.title,
-			},
-		}));
+export function getStaticPaths() {
+	return posts.map((post) => ({
+		params: { slug: post.frontmatter.slug },
+		props: {
+			pubDate: post.frontmatter.updatedDate ?? post.frontmatter.publishedDate,
+			title: post.frontmatter.title,
+		},
+	}));
 }

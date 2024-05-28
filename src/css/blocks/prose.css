@@ -1,3 +1,5 @@
 .prose {
 	--flow-space: var(--space-m);
+	max-width: 65ch;
+	margin-inline: auto;
 }

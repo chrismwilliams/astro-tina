@@ -1,31 +1,26 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { MDXPost } from "@/types";
 
 import PostHero from "@/components/post/PostHero.astro";
-import TOC from "@/components/post/TOC.astro";
 
 import BaseLayout from "./Base.astro";
 
 interface Props {
-	post: CollectionEntry<"post">;
+	post: MDXPost;
 }
 
 const { post } = Astro.props;
-const {
-	data: { description, ogImage, publishDate, title, updatedDate },
-	slug,
-} = post;
-const socialImage = ogImage ?? `/og-image/${slug}.png`;
-const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
-const { headings } = await post.render();
+const { description, publishedDate, title, updatedDate } = post.frontmatter;
+const articleDate = updatedDate
+	? new Date(updatedDate).toISOString()
+	: new Date(publishedDate).toISOString();
 ---
 
-<BaseLayout meta={{ articleDate, description, ogImage: socialImage, title }}>
+<BaseLayout meta={{ articleDate, description, title }}>
 	<div class="wrapper region">
-		{!!headings.length && <TOC headings={headings} />}
-		<article data-pagefind-body>
-			<div id="post-hero"><PostHero content={post} /></div>
-			<div class="flow prose">
+		<article class="flow prose">
+			<div class="flow flow-space-xs" id="post-hero"><PostHero post={post} /></div>
+			<div class="region flow">
 				<slot />
 			</div>
 		</article>

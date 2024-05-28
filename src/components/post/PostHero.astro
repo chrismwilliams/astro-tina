@@ -1,53 +1,43 @@
 ---
-import type { CollectionEntry } from "astro:content";
-
-import { Image } from "astro:assets";
+import type { MDXPost } from "@/types";
 
 import FormattedDate from "../FormattedDate.astro";
 
 interface Props {
-	content: CollectionEntry<"post">;
+	post: MDXPost;
 }
 
-const {
-	content: { data, render },
-} = Astro.props;
+const { post } = Astro.props;
 
-const { remarkPluginFrontmatter } = await render();
+// const { remarkPluginFrontmatter } = await render();
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	month: "long",
 };
 ---
 
-{
-	data.coverImage && (
-		<div>
-			<Image
-				alt={data.coverImage.alt}
-				class="object-cover"
-				fetchpriority="high"
-				loading="eager"
-				src={data.coverImage.src}
-			/>
-		</div>
-	)
-}
-{data.draft ? <span>(Draft)</span> : null}
+{post.frontmatter.draft ? <span>(Draft)</span> : null}
 <h1>
-	{data.title}
+	{post.frontmatter.title}
 </h1>
-<div class="flow">
+<div class="flow text-grey">
 	<p>
-		<FormattedDate date={data.publishDate} dateTimeOptions={dateTimeOptions} /> /{" "}
-		{remarkPluginFrontmatter.minutesRead}
+		<FormattedDate
+			date={new Date(post.frontmatter.publishedDate)}
+			dateTimeOptions={dateTimeOptions}
+		/> ~{" "}
+		{post.frontmatter.minutesRead}
 	</p>
 	{
-		data.updatedDate && (
-			<span>
-				Last Updated:
-				<FormattedDate class="ms-1" date={data.updatedDate} dateTimeOptions={dateTimeOptions} />
-			</span>
+		post.frontmatter.updatedDate && (
+			<p class="flow-space-3xs">
+				Updated:
+				<FormattedDate
+					class="ms-1"
+					date={new Date(post.frontmatter.updatedDate)}
+					dateTimeOptions={dateTimeOptions}
+				/>
+			</p>
 		)
 	}
 </div>

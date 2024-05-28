@@ -1,6 +1,6 @@
 ---
+import type { MDXPost } from "@/types";
 import type { HTMLTag, Polymorphic } from "astro/types";
-import type { CollectionEntry } from "astro:content";
 
 import { getPostSortDate } from "@/data/post";
 
@@ -8,7 +8,7 @@ import FormattedDate from "../FormattedDate.astro";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 	dateTimeOptions?: Intl.DateTimeFormatOptions | undefined;
-	post: CollectionEntry<"post">;
+	post: MDXPost;
 };
 
 const { as: Tag = "div", dateTimeOptions, post } = Astro.props;
@@ -17,8 +17,8 @@ const postDate = getPostSortDate(post);
 
 <FormattedDate date={postDate} dateTimeOptions={dateTimeOptions} />
 <Tag>
-	{post.data.draft && <span>[DRAFT] </span>}
-	<a data-astro-prefetch href={`/writings/${post.slug}/`}>
-		{post.data.title}
+	{post.frontmatter.draft && <span>[DRAFT] </span>}
+	<a data-astro-prefetch href={`/writings/${post.frontmatter.slug}/`}>
+		{post.frontmatter.title}
 	</a>
 </Tag>
