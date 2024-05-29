@@ -89,7 +89,7 @@ export default defineConfig({
 				format: "mdx",
 				label: "Posts",
 				name: "post",
-				path: "src/content/posts",
+				path: "src/posts",
 			},
 		],
 	},

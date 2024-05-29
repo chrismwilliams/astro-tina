@@ -1,12 +1,13 @@
 ---
 import type { PostFrontmatter } from "@/types";
 
+import Socials from "@/components/Socials.astro";
 import PostPreview from "@/components/post/PostPreview.astro";
 import { sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 
 const MAX_POSTS = 5;
-const allPosts = (await Astro.glob<PostFrontmatter>("../content/posts/*.mdx")).filter((post) =>
+const allPosts = (await Astro.glob<PostFrontmatter>("../posts/*.mdx")).filter((post) =>
 	import.meta.env.PROD ? !post.frontmatter.draft : true
 );
 
@@ -26,6 +27,7 @@ const sortedPosts = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 			nisi quod blanditiis, ea at, libero quia nostrum autem. Amet animi facere repellendus
 			exercitationem harum repudiandae.
 		</p>
+		<Socials />
 	</section>
 	<section class="wrapper region flow">
 		<h2>Writings</h2>

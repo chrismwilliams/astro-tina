@@ -3,7 +3,7 @@ import type { MDXPost } from "@/types";
 import { siteConfig } from "@/site-config";
 import rss from "@astrojs/rss";
 
-const posts: MDXPost[] = Object.values(import.meta.glob("../content/posts/*.mdx", { eager: true }));
+const posts: MDXPost[] = Object.values(import.meta.glob("../posts/*.mdx", { eager: true }));
 
 console.log({ posts });
 
