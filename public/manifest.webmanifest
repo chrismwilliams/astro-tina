@@ -1,6 +1,6 @@
 {
-	"name": "Astro Theme Cactus Demo",
-	"short_name": "Astro_Cactus",
+	"name": "Astro Tina",
+	"short_name": "Astro_Tina",
 	"description": "Starter blog site for Astro",
 	"icons": [
 		{
@@ -15,7 +15,5 @@
 		}
 	],
 	"start_url": "/",
-	"background_color": "#1d1f21",
-	"theme_color": "#2bbc8a",
 	"display": "standalone"
 }
