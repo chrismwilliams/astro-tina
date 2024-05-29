@@ -12,7 +12,10 @@ const { post } = Astro.props;
 // const { remarkPluginFrontmatter } = await render();
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
-	month: "long",
+	dateStyle: "long",
+	day: undefined,
+	month: undefined,
+	year: undefined,
 };
 ---
 
@@ -20,7 +23,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 <h1>
 	{post.frontmatter.title}
 </h1>
-<div class="flow text-grey">
+<div class="flow mt-xs text-grey flow-space-3xs">
 	<p>
 		<FormattedDate
 			date={new Date(post.frontmatter.publishedDate)}
@@ -30,7 +33,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	</p>
 	{
 		post.frontmatter.updatedDate && (
-			<p class="flow-space-3xs">
+			<p>
 				Updated:
 				<FormattedDate
 					class="ms-1"

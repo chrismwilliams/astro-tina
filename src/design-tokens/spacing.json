@@ -2,7 +2,7 @@
 	"title": "Spacing",
 	"description": "Consistent spacing sizes, based on a ratio, with min and max sizes. This allows you to set spacing based on the context size. For example, min for mobile and max for desktop browsers.",
 	"meta": {
-		"scaleGenerator": "https://utopia.fyi/space/calculator/?c=330,18,1.2,1200,24,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6|8,s-l|s-xl&g=s,l,xl,12"
+		"scaleGenerator": "https://utopia.fyi/space/calculator/?c=330,18,1.2,1200,24,1.25,6,2,&s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6%7C8,s-l%7Cs-xl&g=s,l,xl,12"
 	},
 	"items": [
 		{

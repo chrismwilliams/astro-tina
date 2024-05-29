@@ -5,7 +5,7 @@
 	align-items: center;
 
 	nav {
-		border-radius: 0.5rem;
+		border-radius: var(--border-radius);
 		padding-block: var(--space-3xs);
 		padding-inline: var(--space-xs);
 		background-color: var(--color-dark-glare);

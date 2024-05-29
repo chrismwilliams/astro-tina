@@ -14,49 +14,16 @@ const { description, publishedDate, title, updatedDate } = post.frontmatter;
 const articleDate = updatedDate
 	? new Date(updatedDate).toISOString()
 	: new Date(publishedDate).toISOString();
+const ogImage = `/og-image/${post.frontmatter.slug}.png`;
 ---
 
-<BaseLayout meta={{ articleDate, description, title }}>
+<BaseLayout meta={{ articleDate, description, ogImage, title }}>
 	<div class="wrapper region">
-		<article class="flow prose">
-			<div class="flow flow-space-xs" id="post-hero"><PostHero post={post} /></div>
+		<article class="prose">
+			<PostHero post={post} />
 			<div class="region flow">
 				<slot />
 			</div>
 		</article>
 	</div>
-	<button class="" data-show="false" id="to-top-btn"
-		><svg
-			aria-hidden="true"
-			class="h-6 w-6"
-			fill="none"
-			focusable="false"
-			stroke="currentColor"
-			stroke-width="2"
-			viewBox="0 0 24 24"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path d="M4.5 15.75l7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-		</svg>
-		<span class="visually-hidden">Back to Top</span>
-	</button>
 </BaseLayout>
-
-<script>
-	const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
-	const targetHeader = document.getElementById("post-hero") as HTMLDivElement;
-
-	function callback(entries: IntersectionObserverEntry[]) {
-		entries.forEach((entry) => {
-			// only show the scroll to top button when the heading is out of view
-			scrollBtn.dataset.show = (!entry.isIntersecting).toString();
-		});
-	}
-
-	scrollBtn.addEventListener("click", () => {
-		document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
-	});
-
-	const observer = new IntersectionObserver(callback);
-	observer.observe(targetHeader);
-</script>
