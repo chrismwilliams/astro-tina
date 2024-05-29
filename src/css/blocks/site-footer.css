@@ -1,7 +1,0 @@
-.site-footer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: var(--space-2xs);
-}
