@@ -5,8 +5,6 @@ import rss from "@astrojs/rss";
 
 const posts: MDXPost[] = Object.values(import.meta.glob("../posts/*.mdx", { eager: true }));
 
-console.log({ posts });
-
 export const GET = async () =>
 	rss({
 		description: siteConfig.description,
