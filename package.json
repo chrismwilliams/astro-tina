@@ -29,7 +29,7 @@
 		"@iconify-json/mdi": "^1.1.66",
 		"@tinacms/cli": "^1.5.45",
 		"@types/eslint": "^8.56.10",
-		"@types/node": "^20.12.12",
+		"@types/node": "^20.13.0",
 		"@typescript-eslint/eslint-plugin": "^7.10.0",
 		"@typescript-eslint/parser": "^7.10.0",
 		"astro-eslint-parser": "^1.0.2",
