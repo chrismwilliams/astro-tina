@@ -27,7 +27,7 @@
 	"devDependencies": {
 		"@astrojs/check": "^0.7.0",
 		"@iconify-json/mdi": "^1.1.66",
-		"@tinacms/cli": "^1.5.45",
+		"@tinacms/cli": "^1.5.46",
 		"@types/eslint": "^8.56.10",
 		"@types/node": "^20.13.0",
 		"@typescript-eslint/eslint-plugin": "^7.10.0",
